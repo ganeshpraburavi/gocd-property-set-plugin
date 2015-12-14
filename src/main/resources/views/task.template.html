@@ -1,0 +1,58 @@
+<div class="form_item_block">
+    <table class="artifact">
+        <thead>
+        <tr>
+            <th><h4 class="keyHeader">Key</h4></th>
+            <th><h4 class="valueHeader">Value</h4></th>
+            <th>&nbsp;</th>
+        </tr>
+        </thead>
+        <tbody class="artifact" ng-init>
+        <tr ng-repeat="kv in kvs">
+            <td class="name_value_cell">
+                <input ng-model="kv.key" required="true" ng-required="true" style="margin-right: 6px;" class="form_input artifact_source" name="" size="30" type="text">
+            </td>
+            <td class="name_value_cell">
+                <input ng-model="kv.value" class="form_input artifact_destination" name="" size="30" type="text">
+            </td>
+            <td class="name_value_cell">
+                <span class="icon_remove delete_parent" ng-click="removeSource($index)"></span>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+    <input id="keyValuePairs" type="hidden" ng-model="keyValuePairs" value="{{keyValuePairs}}">
+    <a id="add_artifact" ng-click="addKey()" class="action_icon skip_dirty_stop add_icon" title="" href="#"><span class="icon"></span><span>Add</span></a>
+    <span class="form_error" ng-show="GOINPUTNAME[keyValuePairs].$error.server">{{ GOINPUTNAME[keyValuePairs].$error.server }}</span>
+</div>
+<div class="form_item_block">
+    <p class="required">Make sure GO_USER and GO_PASSWORD environment variables are present with appropriate values on any of pipeline / Go Environments / on all agent machines. </p>
+</div>
+<script type="text/javascript">
+    jQuery(document).ready(function() {
+        var interval = setInterval(function(){
+            try {
+                $scope = angular.element(document.getElementById("task_angular_pluggable_task_ganeshprabu_propertyset")).scope();
+                $scope.$apply(function() {
+                    $scope.kvs = $scope.keyValuePairs ? JSON.parse($scope.keyValuePairs) : [];
+
+                    $scope.addKey = function() {
+                        $scope.kvs.push({ key: "", value: ""});
+                    };
+
+                    $scope.removeSource = function(index) {
+                        $scope.kvs.splice(index, 1);
+                    }
+
+                });
+                $scope.$watch("kvs", function(){
+                    $scope.keyValuePairs = angular.copy($scope.kvs).toJSON();
+                }, true);
+
+                clearInterval(interval);
+            }
+            catch(e) {
+            }
+        }, 50);
+    });
+</script>

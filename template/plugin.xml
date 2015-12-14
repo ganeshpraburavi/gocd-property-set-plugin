@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<go-plugin id="ganeshprabu.propertyset" version="1">
+    <about>
+        <name>Property Set</name>
+        <version>${version}</version>
+        <target-go-version>14.4.0</target-go-version>
+        <description>Set Properties to the pipeline</description>
+        <vendor>
+            <name>Ganesh Prabu</name>
+        </vendor>
+        <target-os>
+            <value>Linux</value>
+            <value>Mac OS X</value>
+            <value>Windows</value>
+        </target-os>
+    </about>
+</go-plugin>
